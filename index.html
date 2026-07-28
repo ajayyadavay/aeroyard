@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>aeroyard — Practical Tools. Smarter Workflows.</title>
+    <meta name="description"
+        content="aeroyard is a digital tools ecosystem featuring AI-powered applications for aviation safety, risk management, intelligent workflows, planning, and specialized productivity.">
+    <meta property="og:title" content="aeroyard — Practical Tools. Smarter Workflows.">
+    <meta property="og:description"
+        content="Explore the aeroyard ecosystem of practical digital tools for safety, risk, AI, workflow, planning, and productivity.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aeroyard.netlify.app/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="aeroyard — Practical Tools. Smarter Workflows.">
+    <meta name="twitter:description"
+        content="Explore the aeroyard ecosystem of practical digital tools for safety, risk, AI, workflow, planning, and productivity.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        :root {
+            --bg-primary: #06080d;
+            --bg-secondary: #0a0e17;
+            --bg-tertiary: #0f1520;
+            --bg-card: #0d1219;
+            --bg-card-hover: #111827;
+            --accent-primary: #00d4ff;
+            --accent-secondary: #7c3aed;
+            --accent-tertiary: #06ffa5;
+            --accent-warm: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-primary: #f0f4f8;
+            --text-secondary: #94a3b8;
+            --text-tertiary: #64748b;
+            --border-color: rgba(0, 212, 255, 0.08);
+            --border-hover: rgba(0, 212, 255, 0.2);
+            --gradient-hero: linear-gradient(135deg, #06080d 0%, #0a1628 50%, #0d0f1a 100%);
+            --gradient-accent: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            --gradient-card: linear-gradient(145deg, rgba(13, 18, 25, 0.9), rgba(15, 21, 32, 0.6));
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-smooth: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased
+        }
+
+        ::-webkit-scrollbar {
+            width: 6px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 212, 255, 0.2);
+            border-radius: 3px
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 212, 255, 0.4)
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px
+        }
+
+        .section-label {
+            font-family: var(--font-mono);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent-primary);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px
+        }
+
+        .section-label::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 2px;
+            box-shadow: 0 0 8px var(--accent-primary)
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 16px
+        }
+
+        .section-description {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7
+        }
+
+        .gradient-text {
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .grid-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.03;
+            background-image: linear-gradient(rgba(0, 212, 255, 0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 212, 255, 0.3) 1px, transparent 1px);
+            background-size: 60px 60px
+        }
+
+        .particles-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleFloat linear infinite
+        }
+
+        @keyframes particleFloat {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0)
+            }
+
+            10% {
+                opacity: 0.6
+            }
+
+            90% {
+                opacity: 0.6
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-10vh) scale(1)
+            }
+        }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: var(--transition-smooth);
+            background: transparent
+        }
+
+        .navbar.scrolled {
+            background: rgba(6, 8, 13, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none
+        }
+
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-accent);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: var(--bg-primary);
+            position: relative;
+            overflow: hidden
+        }
+
+        .brand-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent 40%, rgba(255, 255, 255, 0.2));
+            border-radius: 8px
+        }
+
+        .brand-text {
+            display: flex;
+            flex-direction: column
+        }
+
+        .brand-name {
+            font-size: 1.15rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            color: var(--text-primary)
+        }
+
+        .brand-tagline {
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase
+        }
+
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: var(--transition-fast);
+            position: relative
+        }
+
+        .navbar-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--accent-primary);
+            transition: var(--transition-fast)
+        }
+
+        .navbar-links a:hover {
+            color: var(--accent-primary)
+        }
+
+        .navbar-links a:hover::after {
+            width: 100%
+        }
+
+        .mobile-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            background: none;
+            border: none
+        }
+
+        .mobile-toggle span {
+            width: 22px;
+            height: 2px;
+            background: var(--text-secondary);
+            transition: var(--transition-fast);
+            border-radius: 1px
+        }
+
+        /* HERO */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            background: var(--gradient-hero);
+            overflow: hidden
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.06) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: heroGlow 8s ease-in-out infinite alternate
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: heroGlow 10s ease-in-out infinite alternate-reverse
+        }
+
+        @keyframes heroGlow {
+            0% {
+                transform: scale(1) translate(0, 0)
+            }
+
+            100% {
+                transform: scale(1.2) translate(30px, -20px)
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center
+        }
+
+        .hero-left {
+            max-width: 620px
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 28px;
+            animation: fadeInUp 0.8s ease-out
+        }
+
+        .hero-badge .pulse-dot {
+            width: 6px;
+            height: 6px;
+            background: var(--accent-tertiary);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                box-shadow: 0 0 0 0 rgba(6, 255, 165, 0.4)
+            }
+
+            50% {
+                opacity: 0.8;
+                box-shadow: 0 0 0 6px rgba(6, 255, 165, 0)
+            }
+        }
+
+        .hero-title {
+            font-size: clamp(2.4rem, 5.5vw, 3.8rem);
+            font-weight: 900;
+            line-height: 1.08;
+            letter-spacing: -0.03em;
+            margin-bottom: 24px;
+            animation: fadeInUp 0.8s ease-out 0.1s both
+        }
+
+        .hero-description {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 520px;
+            margin-bottom: 36px;
+            animation: fadeInUp 0.8s ease-out 0.2s both
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.3s both
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 28px;
+            border-radius: 10px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: var(--transition-fast);
+            white-space: nowrap
+        }
+
+        .btn-primary {
+            background: var(--gradient-accent);
+            color: var(--bg-primary);
+            box-shadow: 0 4px 20px rgba(0, 212, 255, 0.25)
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 212, 255, 0.35)
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-primary);
+            border: 1px solid var(--border-hover)
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--accent-primary);
+            transform: translateY(-2px)
+        }
+
+        .hero-right {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeInUp 0.8s ease-out 0.4s both
+        }
+
+        .hero-visual {
+            position: relative;
+            width: 420px;
+            height: 420px
+        }
+
+        .orbit-ring {
+            position: absolute;
+            border: 1px solid rgba(0, 212, 255, 0.08);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%)
+        }
+
+        .orbit-ring-1 {
+            width: 200px;
+            height: 200px;
+            animation: orbitSpin 20s linear infinite
+        }
+
+        .orbit-ring-2 {
+            width: 300px;
+            height: 300px;
+            animation: orbitSpin 30s linear infinite reverse;
+            border-color: rgba(124, 58, 237, 0.08)
+        }
+
+        .orbit-ring-3 {
+            width: 400px;
+            height: 400px;
+            animation: orbitSpin 40s linear infinite;
+            border-color: rgba(6, 255, 165, 0.06)
+        }
+
+        @keyframes orbitSpin {
+            from {
+                transform: translate(-50%, -50%) rotate(0deg)
+            }
+
+            to {
+                transform: translate(-50%, -50%) rotate(360deg)
+            }
+        }
+
+        .orbit-ring::before {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--accent-primary);
+            border-radius: 50%;
+            top: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 12px var(--accent-primary)
+        }
+
+        .orbit-ring-2::before {
+            background: var(--accent-secondary);
+            box-shadow: 0 0 12px var(--accent-secondary)
+        }
+
+        .orbit-ring-3::before {
+            background: var(--accent-tertiary);
+            box-shadow: 0 0 12px var(--accent-tertiary)
+        }
+
+        .hero-center-brand {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 2
+        }
+
+        .hero-center-brand .center-name {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            background: var(--gradient-accent);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text
+        }
+
+        .hero-center-brand .center-sub {
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            color: var(--text-tertiary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-top: 4px
+        }
+
+        .keyword-node {
+            position: absolute;
+            padding: 6px 12px;
+            background: rgba(13, 18, 25, 0.85);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            border-radius: 6px;
+            font-family: var(--font-mono);
+            font-size: 0.6rem;
+            font-weight: 600;
+            color: var(--accent-primary);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            backdrop-filter: blur(10px);
+            white-space: nowrap
+        }
+
+        .keyword-node:nth-child(5) {
+            top: 5%;
+            left: 50%;
+            transform: translateX(-50%)
+        }
+
+        .keyword-node:nth-child(6) {
+            top: 35%;
+            right: 0%
+        }
+
+        .keyword-node:nth-child(7) {
+            bottom: 8%;
+            right: 10%
+        }
+
+        .keyword-node:nth-child(8) {
+            bottom: 8%;
+            left: 10%
+        }
+
+        .keyword-node:nth-child(9) {
+            top: 35%;
+            left: 0%
+        }
+
+        .keyword-node.safety {
+            border-color: rgba(6, 255, 165, 0.2);
+            color: var(--accent-tertiary)
+        }
+
+        .keyword-node.ai {
+            border-color: rgba(124, 58, 237, 0.2);
+            color: var(--accent-secondary)
+        }
+
+        .keyword-node.tools {
+            border-color: rgba(245, 158, 11, 0.2);
+            color: var(--accent-warm)
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(24px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        /* DIVIDER */
+        .section-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), rgba(0, 212, 255, 0.12), var(--border-color), transparent)
+        }
+
+        /* APPLICATIONS SECTION */
+        .applications {
+            padding: 100px 0;
+            position: relative
+        }
+
+        .applications-header {
+            text-align: center;
+            margin-bottom: 48px
+        }
+
+        .applications-header .section-description {
+            margin: 0 auto
+        }
+
+        .filter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 48px;
+            flex-wrap: wrap
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 100px;
+            font-family: var(--font-sans);
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-secondary);
+            transition: var(--transition-fast);
+            white-space: nowrap
+        }
+
+        .filter-btn:hover {
+            border-color: var(--border-hover);
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04)
+        }
+
+        .filter-btn.active {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: rgba(0, 212, 255, 0.3);
+            color: var(--accent-primary);
+            box-shadow: 0 0 16px rgba(0, 212, 255, 0.1)
+        }
+
+        /* App Cards Grid */
+        .app-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 20px
+        }
+
+        .app-card {
+            position: relative;
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 32px 28px 28px;
+            transition: var(--transition-smooth);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden
+        }
+
+        .app-card.hidden-card {
+            display: none
+        }
+
+        .app-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            border-radius: 16px 16px 0 0;
+            opacity: 0;
+            transition: var(--transition-smooth);
+            background: linear-gradient(90deg, var(--accent-primary), transparent)
+        }
+
+        .app-card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25)
+        }
+
+        .app-card:hover::before {
+            opacity: 1
+        }
+
+        .app-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px
+        }
+
+        .app-card-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            flex-shrink: 0
+        }
+
+        .app-card-badges {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 3px 10px;
+            border-radius: 100px;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase
+        }
+
+        .badge-ai {
+            background: rgba(124, 58, 237, 0.1);
+            border: 1px solid rgba(124, 58, 237, 0.25);
+            color: var(--accent-secondary)
+        }
+
+        .badge-ai .ai-pulse {
+            width: 5px;
+            height: 5px;
+            background: var(--accent-secondary);
+            border-radius: 50%;
+            box-shadow: 0 0 6px var(--accent-secondary)
+        }
+
+        .app-card-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px
+        }
+
+        .app-card-desc {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+            margin-bottom: 12px;
+            flex-grow: 1
+        }
+
+        .app-card-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 20px
+        }
+
+        .tag {
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.55rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase
+        }
+
+        .tag-safety {
+            background: rgba(6, 255, 165, 0.06);
+            border: 1px solid rgba(6, 255, 165, 0.12);
+            color: var(--accent-tertiary)
+        }
+
+        .tag-ai {
+            background: rgba(124, 58, 237, 0.06);
+            border: 1px solid rgba(124, 58, 237, 0.12);
+            color: var(--accent-secondary)
+        }
+
+        .tag-procurement {
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.12);
+            color: var(--accent-warm)
+        }
+
+        .tag-administration {
+            background: rgba(244, 63, 94, 0.06);
+            border: 1px solid rgba(244, 63, 94, 0.12);
+            color: var(--accent-rose)
+        }
+
+        .tag-planning {
+            background: rgba(0, 212, 255, 0.06);
+            border: 1px solid rgba(0, 212, 255, 0.12);
+            color: var(--accent-primary)
+        }
+
+        .app-card-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.02);
+            color: var(--text-primary);
+            transition: var(--transition-fast);
+            width: fit-content
+        }
+
+        .app-card-action:hover {
+            background: rgba(0, 212, 255, 0.08);
+            border-color: rgba(0, 212, 255, 0.25);
+            color: var(--accent-primary);
+            transform: translateY(-1px)
+        }
+
+        .app-card-action .external-icon {
+            width: 14px;
+            height: 14px;
+            opacity: 0.6;
+            transition: var(--transition-fast)
+        }
+
+        .app-card-action:hover .external-icon {
+            opacity: 1
+        }
+
+        /* ABOUT SECTION */
+        .about {
+            padding: 100px 0;
+            position: relative
+        }
+
+        .about-card {
+            padding: 64px 48px;
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .about-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent)
+        }
+
+        .about-title {
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            line-height: 1.15;
+            margin-bottom: 20px
+        }
+
+        .about-desc {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.75;
+            max-width: 720px
+        }
+
+        /* GITHUB */
+        .github {
+            padding: 100px 0;
+            position: relative
+        }
+
+        .github-card {
+            text-align: center;
+            padding: 64px 40px;
+            background: var(--gradient-card);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden
+        }
+
+        .github-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-primary), transparent)
+        }
+
+        .github-card::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 500px;
+            height: 300px;
+            background: radial-gradient(ellipse, rgba(0, 212, 255, 0.04) 0%, transparent 70%);
+            pointer-events: none
+        }
+
+        .github-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem
+        }
+
+        .github-title {
+            font-size: 2rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px
+        }
+
+        .github-desc {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 480px;
+            margin: 0 auto 32px;
+            line-height: 1.7
+        }
+
+        /* FOOTER */
+        .footer {
+            padding: 60px 0 32px;
+            background: var(--bg-secondary);
+            border-top: 1px solid var(--border-color)
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 48px
+        }
+
+        .footer-brand .brand-name {
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-bottom: 8px
+        }
+
+        .footer-brand .brand-tagline {
+            font-size: 0.85rem;
+            color: var(--text-tertiary);
+            font-style: italic
+        }
+
+        .footer-col-title {
+            font-family: var(--font-mono);
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 16px
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px
+        }
+
+        .footer-links a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            transition: var(--transition-fast)
+        }
+
+        .footer-links a:hover {
+            color: var(--accent-primary)
+        }
+
+        .footer-bottom {
+            padding-top: 24px;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between
+        }
+
+        .footer-copyright {
+            font-size: 0.78rem;
+            color: var(--text-tertiary)
+        }
+
+        .footer-bottom-links {
+            display: flex;
+            gap: 20px
+        }
+
+        .footer-bottom-links a {
+            text-decoration: none;
+            font-size: 0.78rem;
+            color: var(--text-tertiary);
+            transition: var(--transition-fast)
+        }
+
+        .footer-bottom-links a:hover {
+            color: var(--accent-primary)
+        }
+
+        /* SCROLL ANIMATIONS */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0)
+        }
+
+        /* RESPONSIVE */
+        @media(max-width:1024px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .hero-left {
+                max-width: 100%
+            }
+
+            .hero-description {
+                max-width: 100%;
+                margin-left: auto;
+                margin-right: auto
+            }
+
+            .hero-buttons {
+                justify-content: center
+            }
+
+            .hero-right {
+                display: none
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+                text-align: center
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center
+            }
+        }
+
+        @media(max-width:768px) {
+            .navbar-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                flex-direction: column;
+                background: rgba(6, 8, 13, 0.95);
+                backdrop-filter: blur(20px);
+                padding: 20px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border-color)
+            }
+
+            .navbar-links.open {
+                display: flex
+            }
+
+            .mobile-toggle {
+                display: flex
+            }
+
+            .app-cards-grid {
+                grid-template-columns: 1fr
+            }
+
+            .filter-bar {
+                gap: 8px
+            }
+
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 0.75rem
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="grid-bg"></div>
+    <div class="particles-container" id="particles"></div>
+
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="#" class="navbar-brand">
+                <div class="brand-icon">a</div>
+                <div class="brand-text">
+                    <span class="brand-name">aeroyard</span>
+                    <span class="brand-tagline">Digital Tools Ecosystem</span>
+                </div>
+            </a>
+            <ul class="navbar-links" id="navLinks">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#applications">Applications</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="https://github.com/ajayyadavay" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+            </ul>
+            <button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-left">
+                    <div class="hero-badge"><span class="pulse-dot"></span> Ecosystem Active</div>
+                    <h1 class="hero-title">Practical Tools.<br><span class="gradient-text">Smarter Workflows.</span>
+                    </h1>
+                    <p class="hero-description">An evolving ecosystem of intelligent digital applications for aviation
+                        safety, risk management, AI-assisted workflows, planning, and specialized productivity.</p>
+                    <div class="hero-buttons">
+                        <a href="#applications" class="btn btn-primary">Explore the Ecosystem</a>
+                        <a href="https://github.com/ajayyadavay" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-secondary">Explore GitHub ↗</a>
+                    </div>
+                </div>
+                <div class="hero-right">
+                    <div class="hero-visual">
+                        <div class="orbit-ring orbit-ring-1"></div>
+                        <div class="orbit-ring orbit-ring-2"></div>
+                        <div class="orbit-ring orbit-ring-3"></div>
+                        <div class="hero-center-brand">
+                            <div class="center-name">aeroyard</div>
+                            <div class="center-sub">Digital Tools Ecosystem</div>
+                        </div>
+                        <div class="keyword-node">SAFETY</div>
+                        <div class="keyword-node ai">AI</div>
+                        <div class="keyword-node">WORKFLOW</div>
+                        <div class="keyword-node tools">TOOLS</div>
+                        <div class="keyword-node safety">RISK</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="applications" id="applications">
+        <div class="container">
+            <div class="applications-header reveal">
+                <div class="section-label">Applications</div>
+                <h2 class="section-title">Explore the <span class="gradient-text">AeroYard</span></h2>
+                <p class="section-description">A growing collection of focused applications built to solve real-world
+                    problems.</p>
+            </div>
+            <div class="filter-bar reveal">
+                <button class="filter-btn active" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="safety">Safety</button>
+                <button class="filter-btn" data-filter="ai">AI</button>
+                <button class="filter-btn" data-filter="procurement">Procurement</button>
+                <button class="filter-btn" data-filter="administration">Administration</button>
+                <button class="filter-btn" data-filter="planning">Planning</button>
+            </div>
+            <div class="app-cards-grid reveal" id="appGrid">
+
+                <div class="app-card" data-tags="safety">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(6,255,165,0.08);border:1px solid rgba(6,255,165,0.15);">🛡️</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Safety Data Processing</h4>
+                    <p class="app-card-desc">Process, organize, and work with aviation safety data through a focused
+                        digital workflow.</p>
+                    <div class="app-card-tags"><span class="tag tag-safety">Safety</span></div>
+                    <a href="https://safetydataprocessing.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="safety">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(6,255,165,0.08);border:1px solid rgba(6,255,165,0.15);">📋</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Safety Data Collection</h4>
+                    <p class="app-card-desc">Collect and structure aviation safety information through a dedicated data
+                        collection workflow.</p>
+                    <div class="app-card-tags"><span class="tag tag-safety">Safety</span></div>
+                    <a href="https://safetydatacollection.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="safety">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(6,255,165,0.08);border:1px solid rgba(6,255,165,0.15);">⚠️</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Safety Risk Assessment</h4>
+                    <p class="app-card-desc">Support structured aviation safety risk assessment and evaluation.</p>
+                    <div class="app-card-tags"><span class="tag tag-safety">Safety</span></div>
+                    <a href="https://safetyriskassessment.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="safety,ai">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);">🔗</div>
+                        <div class="app-card-badges"><span class="badge badge-ai"><span class="ai-pulse"></span> AI
+                                Powered</span></div>
+                    </div>
+                    <h4 class="app-card-name">BowTie Diagram</h4>
+                    <p class="app-card-desc">Create structured BowTie safety diagrams with integrated AI assistance for
+                        hazard, threat, barrier, and consequence analysis.</p>
+                    <div class="app-card-tags"><span class="tag tag-safety">Safety</span> <span
+                            class="tag tag-ai">AI</span></div>
+                    <a href="https://bowtiediagram.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="safety,ai">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(6,255,165,0.08);border:1px solid rgba(6,255,165,0.15);">📝</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Regulatory Audit Form</h4>
+                    <p class="app-card-desc">Manage regulatory audit findings, corrective action plans, responses, and
+                        follow-up workflows.</p>
+                    <div class="app-card-tags"><span class="tag tag-safety">Safety</span> <span
+                            class="tag tag-ai">AI</span></div>
+
+                    <a href="https://regulatoryauditform.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="ai,procurement,administration">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(124,58,237,0.08);border:1px solid rgba(124,58,237,0.15);">📄</div>
+                        <div class="app-card-badges"><span class="badge badge-ai"><span class="ai-pulse"></span> AI
+                                Powered</span></div>
+                    </div>
+                    <h4 class="app-card-name">DIP File Generator</h4>
+                    <p class="app-card-desc">AI-powered assistance for generating structured Nepali government Tippani
+                        and administrative documentation.</p>
+                    <div class="app-card-tags"><span class="tag tag-ai">AI</span> <span
+                            class="tag tag-procurement">Procurement</span> <span
+                            class="tag tag-administration">Administration</span></div>
+                    <a href="https://dipfilegen.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="administration">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.15);">🏆</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Certificate Editor</h4>
+                    <p class="app-card-desc">Load a prebuilt certificate template and populate names efficiently using
+                        data from an Excel sheet.</p>
+                    <div class="app-card-tags"><span class="tag tag-administration">Administration</span></div>
+                    <a href="https://certificateedit.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="planning">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.15);">🗺️</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Fryum Map</h4>
+                    <p class="app-card-desc">Plan trips and build structured itineraries with locations, activities,
+                        transport, accommodation, food, transfers, and other travel details.</p>
+                    <div class="app-card-tags"><span class="tag tag-planning">Planning</span></div>
+                    <a href="https://fryummap.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-card reveal">
+                <div class="section-label">About</div>
+                <h2 class="about-title">Built Around <span class="gradient-text">Practical Problems</span></h2>
+                <p class="about-desc">aeroyard brings together a collection of focused digital tools developed to
+                    simplify practical workflows across aviation safety, regulatory work, AI-assisted documentation,
+                    procurement, and planning. Each application is designed to work independently while forming part of
+                    a
+                    broader ecosystem of useful tools.</p>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section class="github" id="github">
+        <div class="container">
+            <div class="github-card reveal">
+                <div class="github-icon">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"
+                        stroke-linecap="round" stroke-linejoin="round" style="color:var(--text-secondary)">
+                        <path
+                            d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4" />
+                        <path d="M9 18c-4.51 2-5-2-7-2" />
+                    </svg>
+                </div>
+                <h2 class="github-title">Explore the Technology</h2>
+                <p class="github-desc">Discover the code and projects behind the growing aeroyard ecosystem.</p>
+                <a href="https://github.com/ajayyadavay" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-secondary">Explore GitHub ↗</a>
+            </div>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div class="brand-name">aeroyard</div>
+                    <div class="brand-tagline">"Practical Tools. Smarter Workflows."</div>
+                </div>
+                <div>
+                    <div class="footer-col-title">Navigate</div>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#applications">Applications</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <div class="footer-col-title">Connect</div>
+                    <ul class="footer-links">
+                        <li><a href="https://github.com/ajayyadavay" target="_blank"
+                                rel="noopener noreferrer">GitHub</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span class="footer-copyright">© 2026 aeroyard</span>
+                <div class="footer-bottom-links">
+                    <a href="#home">Home</a>
+                    <a href="#applications">Applications</a>
+                    <a href="https://github.com/ajayyadavay" target="_blank" rel="noopener noreferrer">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 40); });
+
+        const mobileToggle = document.getElementById('mobileToggle');
+        const navLinks = document.getElementById('navLinks');
+        mobileToggle.addEventListener('click', () => { navLinks.classList.toggle('open'); });
+        navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => { navLinks.classList.remove('open'); }); });
+
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        const particlesContainer = document.getElementById('particles');
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDuration = (8 + Math.random() * 12) + 's';
+            particle.style.animationDelay = Math.random() * 5 + 's';
+            particle.style.width = (1 + Math.random() * 2) + 'px';
+            particle.style.height = particle.style.width;
+            const colors = ['var(--accent-primary)', 'var(--accent-secondary)', 'var(--accent-tertiary)'];
+            particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+            particlesContainer.appendChild(particle);
+            setTimeout(() => { particle.remove(); }, 25000);
+        }
+        for (let i = 0; i < 20; i++) { setTimeout(createParticle, i * 300); }
+        setInterval(createParticle, 800);
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+
+        // ===== Application Filter (flat grid — one card per app) =====
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const appCards = document.querySelectorAll('#appGrid .app-card');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const filter = btn.getAttribute('data-filter');
+
+                appCards.forEach(card => {
+                    const tags = card.getAttribute('data-tags').split(',');
+                    if (filter === 'all' || tags.includes(filter)) {
+                        card.classList.remove('hidden-card');
+                    } else {
+                        card.classList.add('hidden-card');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
