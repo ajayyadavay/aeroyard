@@ -872,6 +872,12 @@
             color: var(--accent-primary)
         }
 
+        .tag-standards {
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.15);
+            color: #38bdf8
+        }
+
         .app-card-action {
             display: inline-flex;
             align-items: center;
@@ -1248,7 +1254,8 @@
         .theme-luxury .tag-ai,
         .theme-luxury .tag-procurement,
         .theme-luxury .tag-administration,
-        .theme-luxury .tag-planning {
+        .theme-luxury .tag-planning,
+        .theme-luxury .tag-standards {
             background: rgba(184, 160, 112, 0.06);
             border-color: rgba(184, 160, 112, 0.12);
             color: var(--accent-primary);
@@ -1520,7 +1527,8 @@
         .theme-aviation .tag-ai,
         .theme-aviation .tag-procurement,
         .theme-aviation .tag-administration,
-        .theme-aviation .tag-planning {
+        .theme-aviation .tag-planning,
+        .theme-aviation .tag-standards {
             background: rgba(10, 42, 74, 0.04);
             border-color: rgba(10, 42, 74, 0.10);
             color: var(--accent-primary);
@@ -1880,6 +1888,7 @@
                 <button class="filter-btn" data-filter="procurement">Procurement</button>
                 <button class="filter-btn" data-filter="administration">Administration</button>
                 <button class="filter-btn" data-filter="planning">Planning</button>
+                <button class="filter-btn" data-filter="standards">Standards</button>
             </div>
             <div class="app-cards-grid reveal" id="appGrid">
 
@@ -2040,6 +2049,45 @@
                         transport, accommodation, food, transfers, and other travel details.</p>
                     <div class="app-card-tags"><span class="tag tag-planning">Planning</span></div>
                     <a href="https://fryummap.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="administration,planning">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(244,63,94,0.08);border:1px solid rgba(244,63,94,0.15);">📌</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Taskay</h4>
+                    <p class="app-card-desc">A centralized project management workspace to organize tasks, manage issues and punch lists, collaborate with teams, and track project progress with clear accountability and control.</p>
+                    <div class="app-card-tags"><span class="tag tag-administration">Administration</span> <span
+                            class="tag tag-planning">Planning</span></div>
+                    <a href="https://taskay.netlify.app/" target="_blank" rel="noopener noreferrer"
+                        class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                            <polyline points="15 3 21 3 21 9" />
+                            <line x1="10" y1="14" x2="21" y2="3" />
+                        </svg></a>
+                </div>
+
+                <div class="app-card" data-tags="standards">
+                    <div class="app-card-top">
+                        <div class="app-card-icon"
+                            style="background:rgba(56,189,248,0.08);border:1px solid rgba(56,189,248,0.15);">🚁</div>
+                        <div class="app-card-badges"></div>
+                    </div>
+                    <h4 class="app-card-name">Helist</h4>
+                    <p class="app-card-desc">A structured hospital helipad compliance assessment covering regulatory applicability, administration, design and construction, operational requirements, helicopter operations, rescue and firefighting, ATS requirements, and personnel training.</p>
+                    <div class="app-card-tags"><span class="tag tag-standards">Standards</span></div>
+                    <a href="https://helist.netlify.app/" target="_blank" rel="noopener noreferrer"
                         class="app-card-action">Open Application <svg class="external-icon" viewBox="0 0 24 24"
                             fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
                             stroke-linejoin="round">
